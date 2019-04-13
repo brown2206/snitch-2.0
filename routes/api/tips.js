@@ -28,4 +28,14 @@ router.post('/', (req, res) => {
     newTip.save().then(tip => res.json(tip));
 });
 
+// @route   DELETE api/tips/:id
+// @desc    Delete a Tip
+// @access  Public
+router.delete('/:id', (req, res) => {
+    Tip.findById(req.params.id)
+        .then(tip => tip.remove().then(() => res.json({success: true}))
+    )
+    .catch(err => res.status(404).json({success: false}));
+})
+
 module.exports = router;
