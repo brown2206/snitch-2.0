@@ -9,7 +9,7 @@ const TipSchema = new Schema({
     },
     date: {
         type: Date,
-        default: Date.now
+        required: true
     },
     description: {
         type: String,
@@ -23,5 +23,6 @@ const TipSchema = new Schema({
         type: String,
         required: true
     }
+});
 
-})
+module.exports = Tip = mongoose.model('tip', TipSchema);
