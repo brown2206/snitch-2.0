@@ -11,7 +11,6 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addTip } from '../actions/tipActions';
-import uuid from 'uuid';
 
 class TipModal extends Component {
     state = {
@@ -37,7 +36,6 @@ class TipModal extends Component {
         e.preventDefault();
 
         const newTip = {
-            id: uuid(),
             offense: this.state.offense,
             date: this.state.date,
             description: this.state.description,

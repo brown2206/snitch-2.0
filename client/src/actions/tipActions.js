@@ -13,18 +13,26 @@ export const getTips = () => dispatch => {
         );
 };
 
-export const deleteTip = id => {
-    return {
-        type: DELETE_TIP,
-        payload: id
-    };
+export const addTip = tip => dispatch => {
+    axios
+        .post('/api/tips', tip)
+        .then(res =>
+            dispatch({
+                type: ADD_TIP,
+                payload: res.data
+            })
+        );
 };
 
-export const addTip = tip => {
-    return {
-        type: ADD_TIP,
-        payload: tip
-    };
+export const deleteTip = id => dispatch => {
+    axios
+        .delete(`/api/tips/${id}`)
+        .then(res =>
+            dispatch({
+                type: DELETE_TIP,
+                payload: id
+            })
+        );
 };
 
 export const setTipsLoading = () => {

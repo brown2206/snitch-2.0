@@ -30,8 +30,8 @@ class TipList extends Component {
         const { tips } = this.props.tip;
         return(
             <Container>
-                {tips.map(({ id, offense, date, description, location, suspect }) => (
-                    <Card key={id} style={cardStyle}>
+                {tips.map(({ _id, offense, date, description, location, suspect }) => (
+                    <Card key={_id} style={cardStyle}>
                        <CardHeader>{offense}</CardHeader>
                        <CardBody>
                          <CardTitle><b>Date:</b> {date}</CardTitle>
@@ -42,7 +42,7 @@ class TipList extends Component {
                             className="remove-btn"
                             color="danger"
                             size="md"
-                            onClick={this.onDeleteClick.bind(this, id)}
+                            onClick={this.onDeleteClick.bind(this, _id)}
                             >DELETE</Button>
                        </CardBody>
                      </Card>

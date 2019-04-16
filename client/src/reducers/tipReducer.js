@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
         case DELETE_TIP:
             return {
                 ...state,
-                tips: state.tips.filter(tip => tip.id !== action.payload)
+                tips: state.tips.filter(tip => tip._id !== action.payload)
             };
 
         case ADD_TIP:
