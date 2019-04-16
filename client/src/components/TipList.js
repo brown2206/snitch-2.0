@@ -9,15 +9,14 @@ import {
     CardText
 } from 'reactstrap';
 import uuid from 'uuid';
+import { connect } from 'react-redux';
+import { getTips } from '../actions/tipActions';
+import PropTypes from 'prop-types';
 
 class TipList extends Component {
-    state = {
-        tips: [
-            { id: uuid(), offense: 'Murder', date: '10/10/2011', description: 'gruesome', location: 'DC', suspect: 'Hispanic Male' },
-            { id: uuid(), offense: 'Rape', date: '7/8/2002', description: 'college', location: 'FL', suspect: 'White Male' },
-            { id: uuid(), offense: 'Robbery', date: '5/2/2013', description: 'liquor store', location: 'NY', suspect: 'Asian Female' },
-            { id: uuid(), offense: 'Assault', date: '9/7/2018', description: 'club', location: 'PA', suspect: 'Black Male' }
-        ]
+
+    componentDidMount() {
+        this.props.getTips();
     }
 
     render() {
@@ -25,8 +24,7 @@ class TipList extends Component {
         var cardStyle = {
             margin: 20
         };
-
-        const { tips } = this.state;
+        const { tips } = this.props.tip;
         return(
             <Container>
                 <Button
@@ -74,4 +72,13 @@ class TipList extends Component {
     }
 }
 
-export default TipList;
+TipList.propTypes = {
+    getTips: PropTypes.func.isRequired,
+    tip: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    tip: state.tip
+});
+
+export default connect(mapStateToProps, { getTips })(TipList);
