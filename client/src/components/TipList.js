@@ -52,10 +52,10 @@ class TipList extends Component {
                     <Card key={id} style={cardStyle}>
                        <CardHeader>{offense}</CardHeader>
                        <CardBody>
-                         <CardTitle>{date}</CardTitle>
-                         <CardText>{description}</CardText>
-                         <CardText>{location}</CardText>
-                         <CardText>{suspect}</CardText>
+                         <CardTitle><b>Date:</b> {date}</CardTitle>
+                         <CardText><b>Description:</b> {description}</CardText>
+                         <CardText><b>Location:</b> {location}</CardText>
+                         <CardText><b>Suspect:</b> {suspect}</CardText>
                          <Button
                             className="remove-btn"
                             color="danger"
