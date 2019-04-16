@@ -72,6 +72,7 @@ class TipModal extends Component {
                             <FormGroup>
                                 <Label for="offense">Offense Type</Label>
                                 <Input type="select" name="offense" onChange={this.onChange}>
+                                    <option></option>
                                     <option>Animal Cruelty</option>
                                     <option>Arson</option>
                                     <option>Assault</option>
