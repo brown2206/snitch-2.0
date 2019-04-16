@@ -23,6 +23,12 @@ export default function(state = initialState, action) {
                 tips: state.tips.filter(tip => tip.id !== action.payload)
             };
 
+        case ADD_TIP:
+            return {
+                ...state,
+                tips: [action.payload, ...state.tips]
+            };
+
         default:
             return state;
     }

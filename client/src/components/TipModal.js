@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addTip } from '../actions/tipActions';
+import uuid from 'uuid';
 
 class TipModal extends Component {
     state = {
@@ -26,7 +27,30 @@ class TipModal extends Component {
         this.setState({
             modal: !this.state.modal
         });
-    }
+    };
+
+    onChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
+
+    onSubmit = e => {
+        e.preventDefault();
+
+        const newTip = {
+            id: uuid(),
+            offense: this.state.offense,
+            date: this.state.date,
+            description: this.state.description,
+            location: this.state.location,
+            suspect: this.state.suspect
+        }
+
+        // Add tip via addTip action
+        this.props.addTip(newTip);
+
+        // Close modal
+        this.toggle();
+    };
 
     render() {
         return(
@@ -47,7 +71,7 @@ class TipModal extends Component {
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for="offense">Offense Type</Label>
-                                <Input type="select" name="offense">
+                                <Input type="select" name="offense" onChange={this.onChange}>
                                     <option>Animal Cruelty</option>
                                     <option>Arson</option>
                                     <option>Assault</option>
@@ -75,20 +99,25 @@ class TipModal extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="date">Date</Label>
-                                <Input type="date" name="date" placeholder="date placeholder" />
+                                <Input type="date" name="date" onChange={this.onChange} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="description">Description</Label>
-                                <Input type="textarea" name="description" />
+                                <Input type="textarea" name="description" onChange={this.onChange} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="location">Location</Label>
-                                <Input type="text" name="location" />
+                                <Input type="text" name="location" onChange={this.onChange} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="suspect">Suspect</Label>
-                                <Input type="textarea" name="suspect" />
+                                <Input type="textarea" name="suspect" onChange={this.onChange} />
                             </FormGroup>
+                            <Button
+                                color="dark"
+                                style={{marginTop: '2rem'}}
+                                block
+                                >Submit Tip</Button>
                         </Form>
                     </ModalBody>
                 </Modal>
@@ -97,4 +126,8 @@ class TipModal extends Component {
     }
 }
 
-export default connect()(TipModal);
+const mapStateToProps = state => ({
+    tip: state.tip
+});
+
+export default connect(mapStateToProps, { addTip })(TipModal);

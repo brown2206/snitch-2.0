@@ -12,3 +12,10 @@ export const deleteTip = id => {
         payload: id
     };
 };
+
+export const addTip = tip => {
+    return {
+        type: ADD_TIP,
+        payload: tip
+    };
+};
