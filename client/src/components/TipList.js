@@ -8,9 +8,8 @@ import {
     CardTitle,
     CardText
 } from 'reactstrap';
-import uuid from 'uuid';
 import { connect } from 'react-redux';
-import { getTips } from '../actions/tipActions';
+import { getTips, deleteTip } from '../actions/tipActions';
 import PropTypes from 'prop-types';
 
 class TipList extends Component {
@@ -18,6 +17,10 @@ class TipList extends Component {
     componentDidMount() {
         this.props.getTips();
     }
+
+    onDeleteClick = (id) => {
+        this.props.deleteTip(id);
+    };
 
     render() {
 
@@ -27,25 +30,6 @@ class TipList extends Component {
         const { tips } = this.props.tip;
         return(
             <Container>
-                <Button
-                    color="dark"
-                    style={{marginBottom: '2rem'}}
-                    onClick={() => {
-                        const offense = prompt('Enter offense');
-                        const date = prompt('Enter date');
-                        const description = prompt('Enter description');
-                        const location = prompt('Enter location');
-                        const suspect = prompt('Enter suspect');
-                        if(offense) {
-                            this.setState(state => ({
-                                tips: [...state.tips, { id: uuid(), offense, date, description, location, suspect }]
-                            }));
-                        }
-                    }}
-                    >
-                    Add Item
-                 </Button>
-
                 {tips.map(({ id, offense, date, description, location, suspect }) => (
                     <Card key={id} style={cardStyle}>
                        <CardHeader>{offense}</CardHeader>
@@ -58,11 +42,7 @@ class TipList extends Component {
                             className="remove-btn"
                             color="danger"
                             size="md"
-                            onClick={() => {
-                                this.setState(state => ({
-                                    tips: state.tips.filter(tip => tip.id !== id)
-                                }));
-                            }}
+                            onClick={this.onDeleteClick.bind(this, id)}
                             >DELETE</Button>
                        </CardBody>
                      </Card>
@@ -81,4 +61,7 @@ const mapStateToProps = (state) => ({
     tip: state.tip
 });
 
-export default connect(mapStateToProps, { getTips })(TipList);
+export default connect(
+    mapStateToProps,
+    { getTips, deleteTip }
+)(TipList);
