@@ -8,7 +8,6 @@ import {
     CardTitle,
     CardText
 } from 'reactstrap';
-// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import uuid from 'uuid';
 
 class TipList extends Component {
@@ -22,6 +21,11 @@ class TipList extends Component {
     }
 
     render() {
+
+        var cardStyle = {
+            margin: 20
+        };
+
         const { tips } = this.state;
         return(
             <Container>
@@ -45,7 +49,7 @@ class TipList extends Component {
                  </Button>
 
                 {tips.map(({ id, offense, date, description, location, suspect }) => (
-                    <Card key={id}>
+                    <Card key={id} style={cardStyle}>
                        <CardHeader>{offense}</CardHeader>
                        <CardBody>
                          <CardTitle>{date}</CardTitle>
