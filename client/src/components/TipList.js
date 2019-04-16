@@ -4,12 +4,11 @@ import {
     Card,
     Button,
     CardHeader,
-    CardFooter,
     CardBody,
     CardTitle,
     CardText
 } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import uuid from 'uuid';
 
 class TipList extends Component {
@@ -45,21 +44,27 @@ class TipList extends Component {
                     Add Item
                  </Button>
 
-                 <TransitionGroup className="tip-list">
-                    {tips.map(({ id, offense, date, description, location, suspect }) => (
-                        // <CSSTransition key={id} timeout={500} className="fade">
-                            <Card>
-                               <CardHeader>{offense}</CardHeader>
-                               <CardBody>
-                                 <CardTitle>Special Title Treatment</CardTitle>
-                                 <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                                 <Button>Go somewhere</Button>
-                               </CardBody>
-                               <CardFooter>Footer</CardFooter>
-                             </Card>
-                        // </CSSTransition>
-                    ))}
-                  </TransitionGroup>
+                {tips.map(({ id, offense, date, description, location, suspect }) => (
+                    <Card key={id}>
+                       <CardHeader>{offense}</CardHeader>
+                       <CardBody>
+                         <CardTitle>{date}</CardTitle>
+                         <CardText>{description}</CardText>
+                         <CardText>{location}</CardText>
+                         <CardText>{suspect}</CardText>
+                         <Button
+                            className="remove-btn"
+                            color="danger"
+                            size="md"
+                            onClick={() => {
+                                this.setState(state => ({
+                                    tips: state.tips.filter(tip => tip.id !== id)
+                                }));
+                            }}
+                            >DELETE</Button>
+                       </CardBody>
+                     </Card>
+                ))}
             </Container>
         );
     }
