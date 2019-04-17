@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import { GET_TIPS, ADD_TIP, DELETE_TIP, TIPS_LOADING } from '../actions/types';
 
 const initialState = {
