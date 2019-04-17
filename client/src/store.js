@@ -8,7 +8,10 @@ const middleware = [thunk];
 
 const store = createStore(rootReducer, initialState, compose(
     applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : (a) => a
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // options like actionSanitizer, stateSanitizer
+    }) : compose;
 ));
 
 export default store;
